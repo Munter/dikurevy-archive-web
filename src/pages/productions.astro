@@ -1,0 +1,21 @@
+---
+import ProductionLink from "../components/ProductionLink.astro";
+import { productions as productionsMap } from "../data";
+import Layout from "../layouts/Layout.astro";
+
+const productions = Object.values(productionsMap);
+---
+
+<Layout title="DIKUrevy - Revyer">
+  <h1>Revyer</h1>
+
+  <ul>
+    {
+      productions.map((p) => (
+        <li>
+          <ProductionLink productionId={p.id} />
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

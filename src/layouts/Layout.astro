@@ -1,35 +1,60 @@
 ---
+import { locale } from "../util/locale";
+
 export interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/"><img src="/images/logo.svg" aria-label="Forside" width="189" height="200" /></a>
+
+      <ul>
+        <li>
+          <a href="/productions">Revyer</a>
+        </li>
+        <li>
+          <a href="/materialer">Materialer</a>
+        </li>
+        <li>
+          <a href="/personer">Personer</a>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <slot />
+    </main>
+  </body>
 </html>
+
+<style>
+  body {
+    display: flex;
+    gap: 40px;
+  }
+
+  nav {
+    padding: 20px;
+  }
+</style>
+
+
 <style is:global>
-	:root {
-		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background-color: #F6F6F6;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
+  html {
+    font-family: system-ui, sans-serif;
+    background-color: #eeeeee;
+    color: #444;
+  }
 </style>

@@ -1,0 +1,11 @@
+---
+import type { AliasId } from "../types/Alias";
+
+export interface Props {
+  aliasId: AliasId;
+}
+
+const { aliasId } = Astro.props;
+---
+
+<a href={`/personer/${aliasId}`}>{aliasId}</a>

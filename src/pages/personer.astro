@@ -1,0 +1,18 @@
+---
+import { aliases } from "../data";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Revytter">
+  <h1>Revytter</h1>
+
+  <ul>
+    {
+      Object.keys(aliases).map((aliasId) => (
+        <li>
+          <a href={`/personer/${aliasId}`}>{aliasId}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

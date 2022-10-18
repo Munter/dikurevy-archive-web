@@ -1,0 +1,18 @@
+---
+import { materials } from "../data";
+import type { Material, MaterialId } from "../types/Material";
+
+export interface Props {
+  materialId: MaterialId;
+  downloadType?: "tex" | "pdf";
+}
+
+const { materialId, downloadType = 'pdf' } = Astro.props;
+const material = materials[materialId] as Material;
+material.texLocation;
+const url = `https://github.com/dikurevy/Public-Archive/blob/master/${
+  downloadType === "tex" ? material.texLocation : material.pdfLocation
+}`;
+---
+
+<a href={url}>Download {downloadType === "tex" ? 'TeX' : 'PDF'}</a>

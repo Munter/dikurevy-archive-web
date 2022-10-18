@@ -1,0 +1,81 @@
+---
+import MaterialLink from "../../components/MaterialLink.astro";
+import Minutes from "../../components/Minutes.astro";
+import PersonLink from "../../components/PersonLink.astro";
+import { productions, materials } from "../../data";
+import Layout from "../../layouts/Layout.astro";
+import type { Material } from "../../types/Material";
+import type { Production } from "../../types/Production";
+
+export async function getStaticPaths() {
+  return Object.values(materials).map((m) => ({
+    params: { materialId: m.id },
+    props: { material: m, production: productions[m.production] },
+  }));
+}
+
+const { material, production } = Astro.props as {
+  material: Material;
+  production: Production;
+};
+---
+
+<Layout title={`${production.name} ${production.year} - ${material.title}`}>
+  <h1>{material.title} <Minutes minutes={material.length} /></h1>
+
+  <p>
+    Opført til <a href={`/productions/${production.id}`}
+      >{production.name} {production.year}</a>
+  </p>
+
+  <dl>
+    <dt>Skrevet af</dt>
+    {material.authors.length === 0 && <dd>Ukendt</dd>}
+    {
+      material.authors.map((alias) => (
+        <dd>
+          <PersonLink aliasId={alias} />
+        </dd>
+      ))
+    }
+    <dt>Instrueret af</dt>
+    {material.instructors.length === 0 && <dd>Ukendt</dd>}
+    {
+      material.instructors.map((alias) => (
+        <dd>
+          <PersonLink aliasId={alias} />
+        </dd>
+      ))
+    }
+  </dl>
+
+  <h2>Roller</h2>
+
+  <ul>
+    {
+      material.roles.map((role) => (
+        <li>
+          [{role.abbr}]: {role.title} (<PersonLink aliasId={role.actor} />)
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>Rekvisitter</h2>
+
+  <ul>
+    {
+      material.props.map((prop) => (
+        <li>
+          [{prop.name}]: {prop.description} ({prop.responsible})
+        </li>
+      ))
+    }
+  </ul>
+
+  <hr />
+
+  <p><MaterialLink materialId={material.id} /></p>
+
+  <pre>{JSON.stringify(material, null, 2)}</pre>
+</Layout>

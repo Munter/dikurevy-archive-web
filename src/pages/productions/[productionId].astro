@@ -1,0 +1,83 @@
+---
+import Minutes from "../../components/Minutes.astro";
+import PersonLink from "../../components/PersonLink.astro";
+import { productions, materials } from "../../data";
+import Layout from "../../layouts/Layout.astro";
+import type { Production } from "../../types/Production";
+import { PUBLIC_ARCHIVE_FILE_BASE } from "../../util/constants";
+import { getInvolved } from "../../util/getInvolved";
+
+export async function getStaticPaths() {
+  return Object.values(productions).map((p) => ({
+    params: { productionId: p.id },
+    props: { production: p },
+  }));
+}
+
+const { production } = Astro.props as { production: Production };
+const involved = getInvolved(production);
+---
+
+<Layout title={production.name}>
+  <h1>{production.name} {production.year}</h1>
+
+  <nav>
+    <a
+      target="_blank"
+      href={`${PUBLIC_ARCHIVE_FILE_BASE}/${production.year}/Manuskript.pdf`}
+      >Manuskript</a
+    >
+
+    <a
+      target="_blank"
+      href={`${PUBLIC_ARCHIVE_FILE_BASE}/${production.year}/Aktoversigt.pdf`}
+      >Aktoversigt</a
+    >
+
+    <a
+      target="_blank"
+      href={`${PUBLIC_ARCHIVE_FILE_BASE}/${production.year}/Rolleoversigt.pdf`}
+      >Rolleoversigt</a
+    >
+  </nav>
+
+  <section>
+    <h2>Akter</h2>
+
+    {
+      production.acts.map((act) => (
+        <section>
+          <h3>
+            {act.title} <Minutes minutes={act.minutes} />
+          </h3>
+
+          <ol>
+            {act.materials.map((materialId) => (
+              <li>
+                <a href={`/materialer/${materialId}`}>
+                  {materials[materialId]?.title} ()
+                </a>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))
+    }
+  </section>
+
+  <section>
+    <h2>Medvirkende</h2>
+
+    <ul>
+      {
+        involved.map((i) => (
+          <li>
+            <PersonLink aliasId={i} />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <pre>{JSON.stringify(production, null, 2)}</pre>
+</Layout>

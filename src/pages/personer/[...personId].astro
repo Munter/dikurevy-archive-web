@@ -1,0 +1,92 @@
+---
+import { materials, aliases, Involvement } from "../../data";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  return Object.entries(aliases).map(([aliasId, involvement]) => ({
+    params: { personId: aliasId },
+    props: { aliasId, involvement },
+  }));
+}
+
+const { aliasId, involvement } = Astro.props as {
+  aliasId: string;
+  involvement: Involvement;
+};
+
+const instructed = involvement.instructed.map(
+  (materialId) => materials[materialId]!
+);
+
+const authored = involvement.authored.map(
+  (materialId) => materials[materialId]!
+);
+
+const roles = involvement.played.map(({ material, ...role }) => ({
+  ...role,
+  material: materials[material]!,
+}));
+
+
+---
+
+<Layout title={aliasId}>
+  <h1>{aliasId}</h1>
+
+  <p>Aktiv {}-{}</p>
+
+  {
+    authored.length > 0 && (
+      <section>
+        <h2>Forfatter</h2>
+
+        <ol>
+          {authored.map((material) => (
+            <li>
+              <a href={`/materialer/${material.id}`}>
+                {material.revuename} {material.revueyear} - {material.title}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )
+  }
+
+  {
+    roles.length > 0 && (
+      <section>
+        <h2>Roller</h2>
+
+        <ol>
+          {roles.map((role) => (
+            <li>
+              <a href={`/materialer/${role.material.id}`}>
+                {role.material.revuename} {role.material.revueyear} -{" "}
+                {role.material.title}: {role.title}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )
+  }
+
+  {
+    instructed.length > 0 && (
+      <section>
+        <h2>Instruktør</h2>
+
+        <ol>
+          {instructed.map((material) => (
+            <li>
+              <a href={`/materialer/${material.id}`}>
+                {material.revuename} {material.revueyear} - {material.title}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )
+  }
+</Layout>

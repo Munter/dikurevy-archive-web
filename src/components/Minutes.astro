@@ -1,0 +1,11 @@
+---
+import { numberformatter } from '../util/formatters';
+
+export interface Props {
+  minutes: number
+}
+
+const { minutes } = Astro.props;
+---
+
+{minutes > 0 && <>({numberformatter.format(minutes)} minutter)</>}

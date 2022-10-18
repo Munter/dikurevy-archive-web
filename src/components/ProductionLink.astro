@@ -1,0 +1,13 @@
+---
+import { productions } from "../data";
+import type { ProductionId } from "../types/Production";
+
+export interface Props {
+  productionId: ProductionId;
+}
+
+const { productionId } = Astro.props;
+const production = productions[productionId]!;
+---
+
+<a href={`/productions/${productionId}`}>{production.name} {production.year}</a>
