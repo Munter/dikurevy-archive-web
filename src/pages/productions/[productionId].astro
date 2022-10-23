@@ -1,10 +1,11 @@
 ---
+import DownloadLink from "../../components/DownloadLink.astro";
+import MaterialLink from "../../components/MaterialLink.astro";
 import Minutes from "../../components/Minutes.astro";
 import PersonLink from "../../components/PersonLink.astro";
-import { productions, materials } from "../../data";
+import { productions } from "../../data";
 import Layout from "../../layouts/Layout.astro";
 import type { Production } from "../../types/Production";
-import { PUBLIC_ARCHIVE_FILE_BASE } from "../../util/constants";
 import { getInvolved } from "../../util/getInvolved";
 
 export async function getStaticPaths() {
@@ -22,22 +23,14 @@ const involved = getInvolved(production);
   <h1>{production.name} {production.year}</h1>
 
   <nav>
-    <a
-      target="_blank"
-      href={`${PUBLIC_ARCHIVE_FILE_BASE}/${production.year}/Manuskript.pdf`}
-      >Manuskript</a
+    <DownloadLink location={`${production.year}/Manuskript.pdf`}
+      >Manuskript</DownloadLink
     >
-
-    <a
-      target="_blank"
-      href={`${PUBLIC_ARCHIVE_FILE_BASE}/${production.year}/Aktoversigt.pdf`}
-      >Aktoversigt</a
+    <DownloadLink location={`${production.year}/Aktoversigt.pdf`}
+      >Aktoversigt</DownloadLink
     >
-
-    <a
-      target="_blank"
-      href={`${PUBLIC_ARCHIVE_FILE_BASE}/${production.year}/Rolleoversigt.pdf`}
-      >Rolleoversigt</a
+    <DownloadLink location={`${production.year}/Rolleoversigt.pdf`}
+      >Rolleoversigt</DownloadLink
     >
   </nav>
 
@@ -54,9 +47,7 @@ const involved = getInvolved(production);
           <ol>
             {act.materials.map((materialId) => (
               <li>
-                <a href={`/materialer/${materialId}`}>
-                  {materials[materialId]?.title} ()
-                </a>
+                <MaterialLink materialId={materialId} />
               </li>
             ))}
           </ol>
@@ -68,7 +59,7 @@ const involved = getInvolved(production);
   <section>
     <h2>Medvirkende</h2>
 
-    <ul>
+    <ul class="involved">
       {
         involved.map((i) => (
           <li>
@@ -78,6 +69,21 @@ const involved = getInvolved(production);
       }
     </ul>
   </section>
-
-  <pre>{JSON.stringify(production, null, 2)}</pre>
 </Layout>
+
+<style>
+  nav {
+    display: flex;
+    gap: 24px;
+  }
+  ol,
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  ul.involved {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, auto));
+  }
+</style>

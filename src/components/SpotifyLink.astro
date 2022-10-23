@@ -1,0 +1,44 @@
+---
+import type { Material } from "../types/Material";
+import Icon from "./Icon.astro";
+
+export interface Props {
+  material: Material;
+}
+
+const { material } = Astro.props;
+
+function spotifySearchUrl(song: Material): string {
+  const base = "https://open.spotify.com/search";
+
+  const search = [song.composer, song.melody]
+    .filter(Boolean)
+    .join(" ")
+    .replace(/[-"']/g, "");
+
+  return `${base}/${encodeURI(search)}`;
+}
+---
+
+{
+  material.meta.spotify ? (
+    <a
+      href={`https://open.spotify.com/track/${material.meta.spotify}`}
+      target="_blank"
+    >
+      <Icon type={"spotify"} />
+    </a>
+  ) : (
+    material.melody && (
+      <a href={spotifySearchUrl(material)} target="_blank">
+        <Icon type={"spotify"} />
+      </a>
+    )
+  )
+}
+
+<style>
+  a {
+    color: #1db954;
+  }
+</style>

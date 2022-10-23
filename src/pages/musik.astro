@@ -1,0 +1,28 @@
+---
+import SpotifyLink from "../components/SpotifyLink.astro";
+import { materials } from "../data";
+import Layout from "../layouts/Layout.astro";
+
+const songs = Object.values(materials).filter((m) => m.type === "song");
+---
+
+<Layout title="Sange">
+  <ul>
+    {
+      songs.map((s) => (
+        <li>
+          {s.composer && `${s.composer}: `}
+          {s.melody} <SpotifyLink material={s} />
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
+
+<style>
+  li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+</style>

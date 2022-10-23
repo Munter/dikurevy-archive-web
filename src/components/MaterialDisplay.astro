@@ -1,0 +1,28 @@
+---
+import { materials } from "../data";
+import type { Material, MaterialId } from "../types/Material";
+import Icon from "./Icon.astro";
+import Minutes from "./Minutes.astro";
+
+export interface Props {
+  materialId: MaterialId;
+  iconSize?: number;
+}
+
+const { materialId, iconSize = 24 } = Astro.props;
+const material = materials[materialId] as Material;
+---
+
+<span>
+  <Icon type={material.meta.type ?? material.type} size={iconSize} />
+  {material.meta.title ?? material.title}{" "}
+  <Minutes minutes={material.length} />
+</span>
+
+<style>
+  span {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+</style>

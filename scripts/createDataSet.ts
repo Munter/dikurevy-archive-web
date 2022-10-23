@@ -14,6 +14,7 @@ import type { RevueName } from "../src/types/Revues";
 import { personMap } from "./personMap";
 import { cleanTexStuff } from "./cleanTexStuff";
 import { extractAuthors } from "./extractAuhors";
+import { materialMetaMap } from "./metaMap";
 
 type ArchiveJsonYearData = {
   name: RevueName;
@@ -103,10 +104,11 @@ function getCleanId(id: string): AliasId {
     return person;
   }
 
-  for (const { year, name, acts } of allYears) {
+  for (const { year: stringYear, name, acts } of allYears) {
+    const year = parseInt(stringYear, 10);
     const yearData: Production = {
       id: `${name}-${year}`,
-      year: parseInt(year, 10),
+      year,
       name,
       minutes: 0,
       acts: [],
@@ -133,12 +135,14 @@ function getCleanId(id: string): AliasId {
 
         const materialBaseName = basename(location, ".tex");
         const dir = dirname(location) as MaterialLocationFolder;
+        const materialId =
+          `${name}-${yearData.year}-${dir}/${materialBaseName}` as MaterialId;
 
         const materialData: Material = {
           ...material,
           title: cleanTexStuff(title),
           status: cleanTexStuff(status),
-          id: `${name}-${yearData.year}-${dir}/${materialBaseName}`,
+          id: materialId,
           revuename: name,
           revueyear: yearData.year,
           production: yearData.id,
@@ -167,6 +171,7 @@ function getCleanId(id: string): AliasId {
               "utf-8"
             )
           ),
+          meta: materialMetaMap[materialId] ?? {},
         };
 
         for (const { actor, abbr, title } of roles) {

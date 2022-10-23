@@ -1,5 +1,6 @@
 ---
 import type { AliasId } from "../types/Alias";
+import Icon from "./Icon.astro";
 
 export interface Props {
   aliasId: AliasId;
@@ -8,4 +9,21 @@ export interface Props {
 const { aliasId } = Astro.props;
 ---
 
-<a href={`/personer/${aliasId}`}>{aliasId}</a>
+<a href={`/personer/${aliasId}`}><Icon type={"person"} /> {aliasId}</a>
+
+<style>
+  a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    transform: translateX(0);
+    background: rgba(0, 0, 0, 0);
+    transition: all 150ms;
+  }
+
+  a:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateX(8px);
+  }
+</style>

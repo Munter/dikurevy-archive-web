@@ -1,9 +1,10 @@
 ---
-import { resolve } from "path";
-import { readFile } from "fs/promises";
-import MaterialLink from "../../components/MaterialLink.astro";
-import Minutes from "../../components/Minutes.astro";
+import { YouTube } from "@astro-community/astro-embed-youtube";
+
+import DownloadLink from "../../components/DownloadLink.astro";
+import MaterialDisplay from "../../components/MaterialDisplay.astro";
 import PersonLink from "../../components/PersonLink.astro";
+import SpotifyLink from "../../components/SpotifyLink.astro";
 import { productions, materials } from "../../data";
 import Layout from "../../layouts/Layout.astro";
 import type { Material } from "../../types/Material";
@@ -23,7 +24,7 @@ const { material, production } = Astro.props as {
 ---
 
 <Layout title={`${production.name} ${production.year} - ${material.title}`}>
-  <h1>{material.title} <Minutes minutes={material.length} /></h1>
+  <h1><MaterialDisplay materialId={material.id} iconSize={40} /></h1>
 
   <p>
     Opført til <a href={`/productions/${production.id}`}
@@ -52,35 +53,53 @@ const { material, production } = Astro.props as {
     }
   </dl>
 
-  <h2>Roller</h2>
+  {
+    material.roles.length > 0 && (
+      <>
+        <h2>Roller</h2>
 
-  <ul>
-    {
-      material.roles.map((role) => (
-        <li>
-          [{role.abbr}]: {role.title} (<PersonLink aliasId={role.actor} />)
-        </li>
-      ))
-    }
-  </ul>
+        <ul class="roles">
+          {material.roles.map((role) => (
+            <li>
+              [{role.abbr}]: {role.title} (<PersonLink aliasId={role.actor} />)
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
 
-  <h2>Rekvisitter</h2>
+  {
+    material.props.length > 0 && (
+      <>
+        <h2>Rekvisitter</h2>
 
-  <ul>
-    {
-      material.props.map((prop) => (
-        <li>
-          [{prop.name}]: {prop.description} ({prop.responsible})
-        </li>
-      ))
-    }
-  </ul>
+        <ul>
+          {material.props.map((prop) => (
+            <li>
+              [{prop.name}]: {prop.description} ({prop.responsible})
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
 
   <hr />
 
-  <p><MaterialLink materialId={material.id} /></p>
+  <p>
+    <DownloadLink location={material.pdfLocation}>Download PDF</DownloadLink>
+    {material.meta.spotify && <SpotifyLink material={material} />}
+  </p>
 
-  <!-- <pre>{JSON.stringify(material, null, 2)}</pre> -->
+  {material.meta.youtube && <YouTube id={material.meta.youtube} />}
 
   <pre>{JSON.parse(material.rawTex)}</pre>
 </Layout>
+
+<style>
+  .roles li {
+    display: flex;
+    align-items: center;
+  }
+</style>

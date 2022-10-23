@@ -32,9 +32,6 @@ const { title } = Astro.props;
           <a href="/productions">Revyer</a>
         </li>
         <li>
-          <a href="/materialer">Materialer</a>
-        </li>
-        <li>
           <a href="/personer">Alle involverede</a>
           <ul>
             <li>
@@ -48,6 +45,7 @@ const { title } = Astro.props;
             </li>
           </ul>
         </li>
+        <li><a href="/musik">Musik</a></li>
       </ul>
     </nav>
 
@@ -62,6 +60,11 @@ const { title } = Astro.props;
 
       nav {
         padding: 20px;
+      }
+
+      main {
+        padding: 40px 20px;
+        flex-grow: 1;
       }
     </style>
 
