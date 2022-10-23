@@ -6,13 +6,34 @@ import Layout from "../layouts/Layout.astro";
 <Layout title="Revytter">
   <h1>Revytter</h1>
 
-  <ul>
-    {
-      Object.keys(aliases).map((aliasId) => (
-        <li>
-          <a href={`/personer/${aliasId}`}>{aliasId}</a>
-        </li>
-      ))
+  <table>
+    <thead
+      ><tr
+        ><th>Navn</th><th>Forfatter</th><th>Roller</th><th>Instruktør</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        Object.keys(aliases)
+          .sort()
+          .map((aliasId) => (
+            <tr>
+              <td>
+                <a href={`/personer/${aliasId}`}>{aliasId}</a>
+              </td>
+              <td>{aliases[aliasId].authored.length}</td>
+              <td>{aliases[aliasId].played.length}</td>
+              <td>{aliases[aliasId].instructed.length}</td>
+            </tr>
+          ))
+      }
+    </tbody>
+  </table>
+
+  <style>
+    thead {
+      position: sticky;
+      top: 0;
     }
-  </ul>
+  </style>
 </Layout>

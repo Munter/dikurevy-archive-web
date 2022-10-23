@@ -3,5 +3,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "module": "commonjs",
-  },
+    "target": "ES2022",
+    "lib": ["ES2022"]
+  }
 }

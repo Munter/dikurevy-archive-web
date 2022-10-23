@@ -1,4 +1,6 @@
 ---
+import { resolve } from "path";
+import { readFile } from "fs/promises";
 import MaterialLink from "../../components/MaterialLink.astro";
 import Minutes from "../../components/Minutes.astro";
 import PersonLink from "../../components/PersonLink.astro";
@@ -25,7 +27,8 @@ const { material, production } = Astro.props as {
 
   <p>
     Opført til <a href={`/productions/${production.id}`}
-      >{production.name} {production.year}</a>
+      >{production.name} {production.year}</a
+    >
   </p>
 
   <dl>
@@ -77,5 +80,7 @@ const { material, production } = Astro.props as {
 
   <p><MaterialLink materialId={material.id} /></p>
 
-  <pre>{JSON.stringify(material, null, 2)}</pre>
+  <!-- <pre>{JSON.stringify(material, null, 2)}</pre> -->
+
+  <pre>{JSON.parse(material.rawTex)}</pre>
 </Layout>

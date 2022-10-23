@@ -7,12 +7,14 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "data:create": "ts-node scripts/createDataSet.ts > src/data.json"
   },
   "dependencies": {
     "astro": "^1.4.2"
   },
   "devDependencies": {
+    "fast-glob": "^3.2.12",
     "ts-node": "^10.9.1"
   }
 }
