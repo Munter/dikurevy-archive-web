@@ -1,5 +1,6 @@
 import type { AliasId } from "./Alias";
 import type { ProductionId } from "./Production";
+import type { Prop } from "./Prop";
 import type { RevueName } from "./Revues";
 import type { Role } from "./Role";
 
@@ -10,13 +11,9 @@ export type MaterialId = `${RevueName}-${string}-${MaterialLocationFolder}/${str
 export interface Material {
   revuename: RevueName;
   status: string;
-  props: Array<{
-    name: string,
-    description: string,
-    responsible: AliasId;
-  }>;
+  props: Array<Prop>;
   version: string,
-  type:MaterialType
+  type: MaterialType
   order: number;
   title: string;
   id: MaterialId;
