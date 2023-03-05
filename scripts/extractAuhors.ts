@@ -13,6 +13,7 @@ export function extractAuthors(author: string): Array<string> {
 
   // Expand known groups of people
   author = author.replace(/Uffe (&|og) Uffe Productions™?/gi, "uffe, uffefl");
+  author = author.replace(/Uffe²/gi, "uffe, uffefl");
 
   // Handle grouped formatted authors
   author = author.replace(/\{\\tt ([^\}]+?)\}/g, (_match, group) => {
