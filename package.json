@@ -1,5 +1,5 @@
 {
-  "name": "DIKUrevy arkivet",
+  "name": "dikurevy-archive-web",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,12 +10,14 @@
     "astro": "astro",
     "data:create": "ts-node scripts/createDataSet.ts > src/data.json"
   },
-  "dependencies": {
-    "@astro-community/astro-embed-youtube": "^0.2.1",
-    "astro": "^1.4.2"
-  },
   "devDependencies": {
+    "@astro-community/astro-embed-youtube": "^0.2.2",
+    "astro": "^2.0.17",
     "fast-glob": "^3.2.12",
     "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "@astrojs/svelte": "^2.0.2",
+    "svelte": "^3.55.1"
   }
 }

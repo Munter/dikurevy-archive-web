@@ -3,7 +3,24 @@ import FullPage from "../layouts/FullPage.astro";
 ---
 
 <FullPage title="DIKUrevyen">
-  <h1>DIKUrevyen</h1>
+  <main>
+    <img src="/images/logo.svg" alt="DIKUrevy" />
 
-  <img src="/images/logo.svg" />
+    <input type="search" placeholder="Jens vejmand" />
+  </main>
 </FullPage>
+
+<style>
+  main {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  img {
+    display: block;
+
+    width: 80vw;
+    max-width: 400px;
+
+    margin: 0 auto;
+  }
+</style>

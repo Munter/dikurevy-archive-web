@@ -1,6 +1,13 @@
 import { defineConfig } from "astro/config";
 
+import svelte from "@astrojs/svelte";
+
 // https://astro.build/config
 export default defineConfig({
-  vite: { ssr: { noExternal: true } },
+  vite: {
+    ssr: {
+      noExternal: true
+    }
+  },
+  integrations: [svelte()]
 });
