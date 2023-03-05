@@ -1,9 +1,9 @@
 ---
 import { aliases } from "../../data";
-import Layout from "../../layouts/Layout.astro";
+import SidebarLayout from "../../layouts/Sidebar.astro";
 ---
 
-<Layout title="Revytter">
+<SidebarLayout title="Revytter">
   <h1>Forfattere</h1>
 
   <table>
@@ -15,16 +15,16 @@ import Layout from "../../layouts/Layout.astro";
     <tbody>
       {
         Object.keys(aliases)
-          .filter((aliasId) => aliases[aliasId].authored.length > 0)
+          .filter((aliasId) => aliases[aliasId]!.authored.length > 0)
           .sort()
           .map((aliasId) => (
             <tr>
               <td>
                 <a href={`/personer/${aliasId}`}>{aliasId}</a>
               </td>
-              <td>{aliases[aliasId].authored.length}</td>
-              <td>{aliases[aliasId].played.length}</td>
-              <td>{aliases[aliasId].instructed.length}</td>
+              <td>{aliases[aliasId]!.authored.length}</td>
+              <td>{aliases[aliasId]!.played.length}</td>
+              <td>{aliases[aliasId]!.instructed.length}</td>
             </tr>
           ))
       }
@@ -37,4 +37,4 @@ import Layout from "../../layouts/Layout.astro";
       top: 0;
     }
   </style>
-</Layout>
+</SidebarLayout>

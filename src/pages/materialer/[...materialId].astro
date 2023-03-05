@@ -6,7 +6,7 @@ import MaterialDisplay from "../../components/MaterialDisplay.astro";
 import PersonLink from "../../components/PersonLink.astro";
 import SpotifyLink from "../../components/SpotifyLink.astro";
 import { productions, materials } from "../../data";
-import Layout from "../../layouts/Layout.astro";
+import SidebarLayout from "../../layouts/Sidebar.astro";
 import type { Material } from "../../types/Material";
 import type { Production } from "../../types/Production";
 
@@ -23,7 +23,9 @@ const { material, production } = Astro.props as {
 };
 ---
 
-<Layout title={`${production.name} ${production.year} - ${material.title}`}>
+<SidebarLayout
+  title={`${production.name} ${production.year} - ${material.title}`}
+>
   <h1><MaterialDisplay materialId={material.id} iconSize={40} /></h1>
 
   <p>
@@ -95,7 +97,7 @@ const { material, production } = Astro.props as {
   {material.meta.youtube && <YouTube id={material.meta.youtube} />}
 
   <pre>{JSON.parse(material.rawTex)}</pre>
-</Layout>
+</SidebarLayout>
 
 <style>
   .roles li {

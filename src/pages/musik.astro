@@ -1,12 +1,12 @@
 ---
 import SpotifyLink from "../components/SpotifyLink.astro";
 import { materials } from "../data";
-import Layout from "../layouts/Layout.astro";
+import SidebarLayout from "../layouts/Sidebar.astro";
 
 const songs = Object.values(materials).filter((m) => m.type === "song");
 ---
 
-<Layout title="Sange">
+<SidebarLayout title="Sange">
   <ul>
     {
       songs.map((s) => (
@@ -17,7 +17,7 @@ const songs = Object.values(materials).filter((m) => m.type === "song");
       ))
     }
   </ul>
-</Layout>
+</SidebarLayout>
 
 <style>
   li {

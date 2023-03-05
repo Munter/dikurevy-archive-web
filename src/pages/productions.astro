@@ -1,12 +1,12 @@
 ---
 import ProductionLink from "../components/ProductionLink.astro";
 import { productions as productionsMap } from "../data";
-import Layout from "../layouts/Layout.astro";
+import SidebarLayout from "../layouts/Sidebar.astro";
 
 const productions = Object.values(productionsMap);
 ---
 
-<Layout title="DIKUrevy - Revyer">
+<SidebarLayout title="DIKUrevy - Revyer">
   <h1>Revyer</h1>
 
   <ul>
@@ -18,4 +18,4 @@ const productions = Object.values(productionsMap);
       ))
     }
   </ul>
-</Layout>
+</SidebarLayout>

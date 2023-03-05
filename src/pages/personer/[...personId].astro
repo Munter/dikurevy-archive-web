@@ -1,6 +1,6 @@
 ---
 import { materials, aliases, Involvement } from "../../data";
-import Layout from "../../layouts/Layout.astro";
+import SidebarLayout from "../../layouts/Sidebar.astro";
 
 export async function getStaticPaths() {
   return Object.entries(aliases).map(([aliasId, involvement]) => ({
@@ -26,11 +26,9 @@ const roles = involvement.played.map(({ material, ...role }) => ({
   ...role,
   material: materials[material]!,
 }));
-
-
 ---
 
-<Layout title={aliasId}>
+<SidebarLayout title={aliasId}>
   <h1>{aliasId}</h1>
 
   <p>Aktiv {}-{}</p>
@@ -89,4 +87,4 @@ const roles = involvement.played.map(({ material, ...role }) => ({
       </section>
     )
   }
-</Layout>
+</SidebarLayout>
