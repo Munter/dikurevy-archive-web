@@ -1,4 +1,5 @@
 ---
+import Search from "../components/Search.svelte";
 import FullPage from "../layouts/FullPage.astro";
 ---
 
@@ -6,21 +7,50 @@ import FullPage from "../layouts/FullPage.astro";
   <main>
     <img src="/images/logo.svg" alt="DIKUrevy" />
 
-    <input type="search" placeholder="Jens vejmand" />
+    <!-- <Search /> -->
+
+    <nav>
+      <ul>
+        <li>
+          <a href="/productions">Revyer</a>
+        </li>
+        <li>
+          <a href="/personer">Personer</a>
+        </li>
+        <li><a href="/musik">Musik</a></li>
+      </ul>
+    </nav>
   </main>
 </FullPage>
 
 <style>
   main {
     max-width: 600px;
-    margin: 0 auto;
+    margin: 40px auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    align-items: center;
   }
   img {
     display: block;
 
     width: 80vw;
     max-width: 400px;
+  }
 
-    margin: 0 auto;
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    gap: 10px;
+  }
+
+  nav a {
+    padding: 10px;
   }
 </style>
