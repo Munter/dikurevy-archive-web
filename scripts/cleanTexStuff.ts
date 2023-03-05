@@ -31,5 +31,8 @@ export function cleanTexStuff(input: string): string {
   output = output.replace(/\$\\lambda\$/g, "λ");
   output = output.replace(/\$\\pi\$/g, "π");
 
+  // TeX formatting
+  output = output.replace(/\\text(?:it|sf)\{([^\}]*)\}/g, "$1");
+
   return output;
 }
