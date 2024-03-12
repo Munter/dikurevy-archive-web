@@ -16,7 +16,7 @@ function spotifySearchUrl(song: Material): string {
     .join(" ")
     .replace(/[-"']/g, "");
 
-  return `${base}/${encodeURI(search)}`;
+  return `${base}/${encodeURI(search)}/tracks`;
 }
 ---
 

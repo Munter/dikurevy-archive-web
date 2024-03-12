@@ -34,6 +34,7 @@ export interface Material {
   melody?: string | undefined;
   composer?: string | undefined;
   rawTex: string;
+  contentBlocks: Array<{ type: MaterialType; content: string }>;
   meta: MaterialMeta;
 }
 

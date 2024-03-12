@@ -15,6 +15,7 @@ import { personMap } from "./personMap";
 import { cleanTexStuff } from "./cleanTexStuff";
 import { extractAuthors } from "./extractAuhors";
 import { materialMetaMap } from "./metaMap";
+import { cleanContent } from "./cleanContent";
 
 type ArchiveJsonYearData = {
   name: RevueName;
@@ -137,6 +138,14 @@ function getCleanId(id: string): AliasId {
         const dir = dirname(location) as MaterialLocationFolder;
         const materialId =
           `${name}-${yearData.year}-${dir}/${materialBaseName}` as MaterialId;
+        const rawTex = await readFile(
+          resolve(
+            __dirname,
+            "../archive",
+            `${year}/${dir}/${materialBaseName}.tex`
+          ),
+          "utf-8"
+        );
 
         const materialData: Material = {
           ...material,
@@ -161,16 +170,8 @@ function getCleanId(id: string): AliasId {
           instructors: [],
           melody: melody && cleanTexStuff(melody),
           composer: cleanTexStuff(composer),
-          rawTex: JSON.stringify(
-            await readFile(
-              resolve(
-                __dirname,
-                "../archive",
-                `${year}/${dir}/${materialBaseName}.tex`
-              ),
-              "utf-8"
-            )
-          ),
+          rawTex,
+          contentBlocks: cleanContent(rawTex),
           meta: materialMetaMap[materialId] ?? {},
         };
 

@@ -96,7 +96,21 @@ const { material, production } = Astro.props as {
 
   {material.meta.youtube && <YouTube id={material.meta.youtube} />}
 
-  <pre>{JSON.parse(material.rawTex)}</pre>
+  {
+    material.contentBlocks.map((block) => {
+      if (block.type === "song") {
+        return <pre>{block.content}</pre>;
+      } else {
+        return (
+          <div>
+            {block.content.split(/\n\n/g).map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        );
+      }
+    })
+  }
 </SidebarLayout>
 
 <style>

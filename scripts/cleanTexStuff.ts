@@ -1,4 +1,4 @@
-export function cleanTexStuff(input: string): string {
+export function cleanTexStuff(input: string, verbose = true): string {
   if (typeof input !== "string") {
     return input;
   }
@@ -9,7 +9,7 @@ export function cleanTexStuff(input: string): string {
   output = output.replace(/`{2}(.*?)('|`){2}/g, '"$1"');
   output = output.replace(/`{1}(.*?)('|`){1}/g, "'$1'");
 
-  output = output.replace(/\\ldots(?:\{\})?/g, "...");
+  output = output.replace(/\\l?dots(?:\{\})?/g, "…");
   output = output.replace(/\\'e/g, "é");
   output = output.replace(/\\'/g, "'");
   output = output.replace(/\\ae(?:\{\})?/g, "æ");
@@ -52,10 +52,12 @@ export function cleanTexStuff(input: string): string {
   output = output.replace(/\$\^\\small tm\$/gi, "™");
   output = output.replace(/\\*$/gi, "");
 
-  if (output.includes("\\") || output.includes("{")) {
-    console.error(
-      `TeX was not cleaned properly\n\n Input: ${input}\nOutput: ${output}`
-    );
+  if (verbose) {
+    if (output.includes("\\") || output.includes("{")) {
+      console.error(
+        `TeX was not cleaned properly\n\n Input: ${input}\nOutput: ${output}`
+      );
+    }
   }
 
   return output;
