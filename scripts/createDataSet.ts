@@ -68,7 +68,11 @@ function getCleanId(id: string): AliasId {
       .sort()
       .map((jsonPath) =>
         readFile(jsonPath, "utf8").then(
-          (data) => JSON.parse(data) as ArchiveJsonYearData
+          (data) =>
+            [
+              jsonPath.replace("/json.js", "").split("/").pop()!,
+              JSON.parse(data) as ArchiveJsonYearData,
+            ] as const
         )
       )
   );
@@ -105,7 +109,7 @@ function getCleanId(id: string): AliasId {
     return person;
   }
 
-  for (const { year: stringYear, name, acts } of allYears) {
+  for (const [folderName, { year: stringYear, name, acts }] of allYears) {
     const year = parseInt(stringYear, 10);
     const yearData: Production = {
       id: `${name}-${year}`,
@@ -142,7 +146,7 @@ function getCleanId(id: string): AliasId {
           resolve(
             __dirname,
             "../archive",
-            `${year}/${dir}/${materialBaseName}.tex`
+            `${folderName}/${dir}/${materialBaseName}.tex`
           ),
           "utf-8"
         );

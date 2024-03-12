@@ -26,8 +26,8 @@ export interface Material {
    */
   length: number;
   authoringyear: number;
-  texLocation: `${number}/${MaterialLocationFolder}/${string}.tex`;
-  pdfLocation: `${number}/${MaterialLocationFolder}/${string}.pdf`;
+  texLocation: `${number | string}/${MaterialLocationFolder}/${string}.tex`;
+  pdfLocation: `${number | string}/${MaterialLocationFolder}/${string}.pdf`;
   authors: Array<AliasId>;
   roles: Array<Role>;
   instructors: Array<AliasId>;
