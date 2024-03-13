@@ -1,4 +1,5 @@
 ---
+import PersonLink from "../../components/PersonLink.astro";
 import { aliases } from "../../data";
 import SidebarLayout from "../../layouts/Sidebar.astro";
 ---
@@ -20,7 +21,7 @@ import SidebarLayout from "../../layouts/Sidebar.astro";
           .map((aliasId) => (
             <tr>
               <td>
-                <a href={`/personer/${aliasId}`}>{aliasId}</a>
+                <PersonLink aliasId={aliasId} />
               </td>
               <td>{aliases[aliasId]!.authored.length}</td>
               <td>{aliases[aliasId]!.played.length}</td>
