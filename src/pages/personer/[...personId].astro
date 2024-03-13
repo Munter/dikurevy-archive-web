@@ -26,12 +26,21 @@ const roles = involvement.played.map(({ material, ...role }) => ({
   ...role,
   material: materials[material]!,
 }));
+
+const allMaterialsInvolvedIn = [
+  ...instructed,
+  ...authored,
+  ...roles.map((r) => r.material),
+];
+const allYearsInvolved = allMaterialsInvolvedIn.map((m) => m.revueyear);
+const firstYear = Math.min(...allYearsInvolved);
+const lastYear = Math.max(...allYearsInvolved);
 ---
 
 <SidebarLayout title={aliasId}>
   <h1>{aliasId}</h1>
 
-  <p>Aktiv {}-{}</p>
+  <p>Aktiv {firstYear}-{lastYear}</p>
 
   {
     authored.length > 0 && (

@@ -16,6 +16,7 @@ import { cleanTexStuff } from "./cleanTexStuff";
 import { extractAuthors } from "./extractAuhors";
 import { materialMetaMap } from "./metaMap";
 import { cleanContent } from "./cleanContent";
+import type { Role } from "../src/types/Role";
 
 type ArchiveJsonYearData = {
   name: RevueName;
@@ -161,8 +162,8 @@ function getCleanId(id: string): AliasId {
           production: yearData.id,
           length: parseFloat(length),
           authoringyear: parseInt(revueyear, 10),
-          texLocation: `${year}/${dir}/${materialBaseName}.tex`,
-          pdfLocation: `${year}/${dir}/${materialBaseName}.pdf`,
+          texLocation: `${folderName}/${dir}/${materialBaseName}.tex`,
+          pdfLocation: `${folderName}/${dir}/${materialBaseName}.pdf`,
 
           props: props.map((p) => ({
             name: cleanTexStuff(p.name),
@@ -190,7 +191,7 @@ function getCleanId(id: string): AliasId {
               person.instructed.push(materialData.id);
               materialData.instructors.push(person.id);
             } else {
-              const roleData = {
+              const roleData: Role = {
                 abbr,
                 title: cleanTexStuff(title),
                 material: materialData.id,
